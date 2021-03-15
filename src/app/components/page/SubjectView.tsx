@@ -37,7 +37,7 @@ interface SubjectState {
         subject: Subject
     },
     term?: string,
-    repaged: boolean,
+    repaging: boolean,
     searched: boolean
 }
 
@@ -97,9 +97,9 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
     private paged: DataViewPaged = {
         onChange: (offset, limit) => {
             this.subjectService.getAll(offset, limit, this.state.term).subscribe(data => {
-                this.setState({ data, repaged: false, searched: !!this.state.term });
+                this.setState({ data, repaging: false, searched: !!this.state.term });
             }, error => {
-                this.setState({ data: [], repaged: false, searched: !!this.state.term });
+                this.setState({ data: [], repaging: false, searched: !!this.state.term });
                 console.error(error);
             });
         }
@@ -112,7 +112,7 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
 
         this.state = {
             data: [],
-            repaged: false,
+            repaging: false,
             searched: false
         }
     }
@@ -143,7 +143,7 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
                 <DataView
                     data={data}
                     paged={this.paged}
-                    repaged={this.state.repaged}
+                    repaging={this.state.repaging}
                     actions={this.actions}
                     columns={this.columns} />
                     <DataActionArea onCreate={this.openCreator.bind(this)} />
@@ -195,7 +195,7 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
     searchSubjects() {
         if (this.canSearch()) {
             this.setState({
-                repaged: true,
+                repaging: true,
                 searched: true,
                 term: isBlank(this.state.term) ? undefined : this.state.term
             })

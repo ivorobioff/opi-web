@@ -78,7 +78,7 @@ export interface DataViewProps {
     classes: {[name: string]:string};
     title?: string;
     paged?: DataViewPaged;
-    repaged?: boolean;
+    repaging?: boolean;
 }
 
 interface DataViewState {
@@ -181,7 +181,7 @@ class DataView extends Component<DataViewProps, DataViewState> {
             }
         }
 
-        if (this.props.repaged !== prevProps.repaged && this.props.repaged === true && this.isPaged()) {
+        if (this.props.repaging !== prevProps.repaging && this.props.repaging === true && this.isPaged()) {
             this.changePage(1);
         }
     }
