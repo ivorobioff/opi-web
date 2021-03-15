@@ -76,8 +76,9 @@ export interface DataViewProps {
     columns: DataViewColumn[],
     actions?: DataViewAction[],
     classes: {[name: string]:string};
-    title: string;
+    title?: string;
     paged?: DataViewPaged;
+    repaged?: boolean;
 }
 
 interface DataViewState {
@@ -179,6 +180,10 @@ class DataView extends Component<DataViewProps, DataViewState> {
                 });
             }
         }
+
+        if (this.props.repaged !== prevProps.repaged && this.props.repaged === true && this.isPaged()) {
+            this.changePage(1);
+        }
     }
 
     render() {
@@ -194,7 +199,7 @@ class DataView extends Component<DataViewProps, DataViewState> {
         } = this.state;
 
         return (<Fragment>
-                    <Typography component="h2" variant="h6" color="primary">{title}</Typography>
+                    {title && (<Typography component="h2" variant="h6" color="primary">{title}</Typography>)}
                     <Table>
                         <TableHead>
                             <TableRow>

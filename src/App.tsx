@@ -8,7 +8,6 @@ import secretHeaderProvider from './support/auth/secretHeaderProvider';
 import forbiddenErrorHandler from './support/auth/forbiddenErrorHandler';
 import Environment from './support/env/Environment';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { orange } from '@material-ui/core/colors';
 import { cloneWith } from './support/random/utils';
 import { SubjectService } from './app/services/SubjectService';
 import SubjectView from './app/components/page/SubjectView';
@@ -21,7 +20,7 @@ const container = new Container();
 
 container.registerFactory('env', () => {
     return cloneWith({
-        baseUrl: 'http://localhost:3001',
+        baseUrl: 'http://localhost:3000',
         apiBaseUrl: 'http://localhost:8080/api/v1.0',
     }, window.__ENV__);
 });
@@ -50,9 +49,11 @@ container.get(Authenticator).watch();
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#00897b',
+            main: '#bf360c',
         },
-        secondary: orange,
+        secondary: {
+            main: '#bf360c'
+        },
     }
 });
 

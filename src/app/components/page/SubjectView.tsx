@@ -12,6 +12,10 @@ import { SubjectService } from "../../services/SubjectService";
 import moment from "moment";
 import {AiFillDelete, AiOutlineEdit} from "react-icons/ai";
 import Confirmation from "../../../support/modal/components/Confirmation";
+import { Box, FormControl, IconButton, Input, InputAdornment, Typography } from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
+import { isBlank } from "../../../support/validation/utils";
+
 
 interface SubjectProps {
     container: Container;
@@ -31,7 +35,10 @@ interface SubjectState {
     remove?: {
         open: true,
         subject: Subject
-    }
+    },
+    term?: string,
+    repaged: boolean,
+    searched: boolean
 }
 
 const opinions = {
@@ -89,11 +96,10 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
     
     private paged: DataViewPaged = {
         onChange: (offset, limit) => {
-
-            this.subjectService.getAll(offset, limit).subscribe(data => {
-                this.setState({ data });
+            this.subjectService.getAll(offset, limit, this.state.term).subscribe(data => {
+                this.setState({ data, repaged: false, searched: !!this.state.term });
             }, error => {
-                this.setState({ data: [] });
+                this.setState({ data: [], repaged: false, searched: !!this.state.term });
                 console.error(error);
             });
         }
@@ -105,7 +111,9 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
         this.subjectService = props.container.get(SubjectService);
 
         this.state = {
-            data: []
+            data: [],
+            repaged: false,
+            searched: false
         }
     }
 
@@ -115,10 +123,27 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
 
         return (<Fragment>
             <DataPaper>
+            <Box width="100%">
+                    <Box alignItems="flex-start">
+                        <Typography component="h2" variant="h6" color="primary">Subjects</Typography>
+                    </Box>
+
+                    <Box width="30%" alignItems="flex-end">
+                        <FormControl  fullWidth style={{ margin: 8 }}>
+                            <Input placeholder="Search" onChange={ this.changeSearch.bind(this) } onKeyDown={ this.searchKeyDown.bind(this) } endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton onClick={this.searchSubjects.bind(this)} disabled={!this.canSearch()}>
+                                    <SearchIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            } />
+                        </FormControl>
+                    </Box>
+                </Box>
                 <DataView
-                    title="Subjects"
                     data={data}
                     paged={this.paged}
+                    repaged={this.state.repaged}
                     actions={this.actions}
                     columns={this.columns} />
                     <DataActionArea onCreate={this.openCreator.bind(this)} />
@@ -149,6 +174,32 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
 
         
         </Fragment>)
+    }
+
+    canSearch() {
+        return this.state.searched === true || !isBlank(this.state.term);
+    }
+
+    changeSearch(e: any) {
+        this.setState({
+            term: e.target.value
+        });
+    }
+
+    searchKeyDown(e: any)  {
+        if (e.key === 'Enter') {
+            this.searchSubjects();
+        }
+    }
+
+    searchSubjects() {
+        if (this.canSearch()) {
+            this.setState({
+                repaged: true,
+                searched: true,
+                term: isBlank(this.state.term) ? undefined : this.state.term
+            })
+        }
     }
    
     openCreator() {
