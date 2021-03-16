@@ -12,7 +12,7 @@ import { SubjectService } from "../../services/SubjectService";
 import moment from "moment";
 import {AiFillDelete, AiOutlineEdit} from "react-icons/ai";
 import Confirmation from "../../../support/modal/components/Confirmation";
-import { Box, FormControl, IconButton, Input, InputAdornment, Typography } from "@material-ui/core";
+import { Box, FormControl, Grid, IconButton, Input, InputAdornment, Typography } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { isBlank } from "../../../support/validation/utils";
 
@@ -123,13 +123,12 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
 
         return (<Fragment>
             <DataPaper>
-            <Box width="100%">
-                    <Box alignItems="flex-start">
+                <Grid container justify="space-between" style={{ marginBottom: 20}}>
+                    <Grid item md={6}>
                         <Typography component="h2" variant="h6" color="primary">Subjects</Typography>
-                    </Box>
-
-                    <Box width="30%" alignItems="flex-end">
-                        <FormControl  fullWidth style={{ margin: 8 }}>
+                    </Grid>
+                    <Grid item md={6}>
+                        <FormControl  fullWidth>
                             <Input placeholder="Search" onChange={ this.changeSearch.bind(this) } onKeyDown={ this.searchKeyDown.bind(this) } endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton onClick={this.searchSubjects.bind(this)} disabled={!this.canSearch()}>
@@ -138,8 +137,8 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
                                 </InputAdornment>
                             } />
                         </FormControl>
-                    </Box>
-                </Box>
+                    </Grid>
+                </Grid>
                 <DataView
                     data={data}
                     paged={this.paged}

@@ -168,7 +168,7 @@ class FlameLayout extends Component<FlameLayoutProps, FlameLayoutState> {
                         color="inherit" 
                         noWrap 
                         className={classes.title}>
-                        Blin!
+                        {title}
                     </Typography>
                     <IconButton onClick={this.hideMenu.bind(this)}>
                         <ChevronLeftIcon />
