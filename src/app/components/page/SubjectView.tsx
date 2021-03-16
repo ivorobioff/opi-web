@@ -12,7 +12,7 @@ import { SubjectService } from "../../services/SubjectService";
 import moment from "moment";
 import {AiFillDelete, AiOutlineEdit} from "react-icons/ai";
 import Confirmation from "../../../support/modal/components/Confirmation";
-import { Box, FormControl, Grid, IconButton, Input, InputAdornment, Typography } from "@material-ui/core";
+import { FormControl, Grid, IconButton, Input, InputAdornment, Typography } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { isBlank } from "../../../support/validation/utils";
 

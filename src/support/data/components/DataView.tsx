@@ -1,5 +1,5 @@
 import React, {Component, Fragment, ReactElement, MouseEvent} from 'react';
-import { Theme, createStyles, withStyles, Table, TableHead, TableRow, TableCell, TableBody, Typography } from '@material-ui/core';
+import { Theme, createStyles, withStyles, Table, TableHead, TableRow, TableCell, TableBody, Typography, TableContainer } from '@material-ui/core';
 import IconButton from "@material-ui/core/IconButton";
 import {
     fromCamelCaseToHumanCase,
@@ -200,6 +200,7 @@ class DataView extends Component<DataViewProps, DataViewState> {
 
         return (<Fragment>
                     {title && (<Typography component="h2" variant="h6" color="primary">{title}</Typography>)}
+                    <TableContainer>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -250,6 +251,7 @@ class DataView extends Component<DataViewProps, DataViewState> {
                             })}
                         </TableBody>
                     </Table>
+                    </TableContainer>
             {this.isPaged() && (<div className={classes.paged}>
                 <IconButton disabled={!this.state.canGoBack} onClick={() => this.move(false)}>
                     <MdArrowBack size={20} />
