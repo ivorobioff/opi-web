@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react"
 import { tap } from "rxjs/operators";
 import DataActionArea from "../../../support/data/components/DataActionArea";
 import DataPaper from "../../../support/data/components/DataPaper";
-import DataView, { DataViewAction, DataViewColumn, DataViewPaged } from "../../../support/data/components/DataView";
+import DataView, { DataViewAction, DataViewCellTextColor, DataViewColumn, DataViewPaged } from "../../../support/data/components/DataView";
 import { DataFormControl, DataFormResult } from "../../../support/form/components/DataForm";
 import Container from "../../../support/ioc/Container"
 import PopupForm from "../../../support/modal/components/PopupForm";
@@ -48,6 +48,13 @@ const opinions = {
     BAD: 'Bad'
 }
 
+const opinionColoring: {[type: string]: DataViewCellTextColor} = {
+    EXCELLENT: 'success',
+    GOOD: 'success',
+    SO_SO: 'warning',
+    BAD: 'error'
+}
+
 export default class SubjectView extends Component<SubjectProps, SubjectState> {
 
     private subjectService: SubjectService;
@@ -61,6 +68,7 @@ export default class SubjectView extends Component<SubjectProps, SubjectState> {
         },
         {
             name: 'opinion',
+            color: (value, subject: Subject) => opinionColoring[subject.opinion],
             pipe: fromAllCapsToHumanCase
         },
         {

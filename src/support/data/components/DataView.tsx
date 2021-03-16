@@ -26,7 +26,9 @@ const styles = (theme: Theme) => createStyles({
     cellTextColorSuccess: {
         color: theme.palette.success.dark
     },
-
+    cellTextColorWarning: {
+        color: theme.palette.warning.dark
+    },
     paged: {
         display: 'flex',
         justifyContent: 'center',
@@ -46,7 +48,7 @@ export interface DataViewCellClickContext {
 export type DataViewTitleResolver = (row: any) => string;
 export type DataViewPipeHandler = (value: any, row: any) => any;
 
-export type DataViewCellTextColor = 'error' | 'success';
+export type DataViewCellTextColor = 'error' | 'success' | 'warning';
 export type DataViewCellTextColorResolver = (value: any, row: any) => DataViewCellTextColor;
 export type DataViewOnClickCellHandler = (row: any, context: DataViewCellClickContext) => void;
 
