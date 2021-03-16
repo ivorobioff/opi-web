@@ -5,4 +5,5 @@ declare global {
 export default interface Environment {
     baseUrl: string;
     apiBaseUrl: string;
+    attributes?: {[name: string]: any};
 }

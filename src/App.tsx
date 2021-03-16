@@ -18,8 +18,16 @@ import PrivateRoute from './support/auth/components/PrivateRoute';
 
 const container = new Container();
 
+const site = {
+    name: 'Opi',
+    url: 'http://opi.familythings.cloud'
+};
+
 container.registerFactory('env', () => {
     return cloneWith({
+        attributes: {
+            site
+        },
         baseUrl: 'http://localhost:3000',
         apiBaseUrl: 'http://localhost:8080/api/v1.0',
     }, window.__ENV__);
@@ -75,7 +83,7 @@ class App extends Component<AppProps, AppState> {
                     </AppLayout>
                 </PrivateRoute>
                 <Route exact path="/sign-in">
-                    <AuthLayout title="Sign-In">
+                    <AuthLayout title="Sign-In" site={site}>
                         <Login container={container} labels={ { usernameControl: 'Username'} } />
                     </AuthLayout>
                 </Route>

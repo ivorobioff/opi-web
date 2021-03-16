@@ -5,11 +5,7 @@ import Container from '../../../support/ioc/Container';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Authenticator } from '../../../support/auth/Authenticator';
 import { cloneWith } from '../../../support/random/utils';
-
-const site = {
-    url: 'https://opi.techmoodivns.eu',
-    name: 'opi'
-}
+import Environment from '../../../support/env/Environment';
 
 const title = "Opi";
 
@@ -32,6 +28,7 @@ interface AppLayoutState {
 class AppLayout extends Component<AppLayoutProps, AppLayoutState> {
 
     private authenticator: Authenticator;
+    private env: Environment;
 
     constructor(props: AppLayoutProps) {
         super(props);
@@ -39,6 +36,7 @@ class AppLayout extends Component<AppLayoutProps, AppLayoutState> {
         let container  = props.container;
         
         this.authenticator = container.get(Authenticator);
+        this.env = container.get('env') as Environment;
 
         this.state = {
             userMenu: { 
@@ -65,7 +63,7 @@ class AppLayout extends Component<AppLayoutProps, AppLayoutState> {
 
         return (<FlameLayout 
             mainMenu={mainMenu} 
-            site={site} 
+            site={this.env.attributes!.site} 
             title={title} 
             userMenu={userMenu}>{children}</FlameLayout>);
     }

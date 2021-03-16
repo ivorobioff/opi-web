@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Box from '@material-ui/core/Box';
-import Copyright from "./Copyright";
+import Copyright from '../../layout/components/Copyright';
 
 const styles = (theme: Theme) => createStyles({
     paper: {
@@ -24,6 +24,10 @@ const styles = (theme: Theme) => createStyles({
 export interface AuthLayoutProps {
     title: string;
     classes: {[name: string]: string};
+    site: {
+        url: string;
+        name: string;
+    }
 }
 
 class AuthLayout extends Component<AuthLayoutProps, {}> {
@@ -45,7 +49,7 @@ class AuthLayout extends Component<AuthLayoutProps, {}> {
             {children}
         </div>
         <Box mt={8}>
-            <Copyright />
+            <Copyright url={this.props.site.url} name={this.props.site.name}  />
         </Box>
     </Container>);
     }
