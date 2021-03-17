@@ -25,10 +25,7 @@ const site = {
 
 container.registerFactory('env', () => {
     return cloneWith({
-        attributes: {
-            site
-        },
-        baseUrl: 'http://localhost:3000',
+        site,
         apiBaseUrl: 'http://localhost:8080/api/v1.0',
     }, window.__ENV__);
 });

@@ -63,7 +63,7 @@ class AppLayout extends Component<AppLayoutProps, AppLayoutState> {
 
         return (<FlameLayout 
             mainMenu={mainMenu} 
-            site={this.env.attributes!.site} 
+            site={this.env.site} 
             title={title} 
             userMenu={userMenu}>{children}</FlameLayout>);
     }
